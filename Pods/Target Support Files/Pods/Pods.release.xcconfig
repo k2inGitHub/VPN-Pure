@@ -1,0 +1,5 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/ActionSheetPicker-3.0" "${PODS_ROOT}/Headers/Public/Canvas" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/THLabel" "${PODS_ROOT}/Headers/Public/UIAlertView+Blocks"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/ActionSheetPicker-3.0" -isystem "${PODS_ROOT}/Headers/Public/Canvas" -isystem "${PODS_ROOT}/Headers/Public/Masonry" -isystem "${PODS_ROOT}/Headers/Public/THLabel" -isystem "${PODS_ROOT}/Headers/Public/UIAlertView+Blocks"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"AFNetworking" -l"ActionSheetPicker-3.0" -l"Canvas" -l"Masonry" -l"THLabel" -l"UIAlertView+Blocks" -framework "CoreGraphics" -framework "CoreText" -framework "Foundation" -framework "MobileCoreServices" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
+PODS_ROOT = ${SRCROOT}/Pods

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="ZyJ-Sx-pWi" customClass="VPNAlertView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KoD-QB-3TQ" userLabel="VIP">
+                    <rect key="frame" x="140" y="160" width="320" height="280"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Bomb-box" translatesAutoresizingMaskIntoConstraints="NO" id="Rex-wr-dr3">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="280"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="VIP服务" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="Hzc-Kj-usw">
+                            <rect key="frame" x="25" y="18" width="79" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="尊敬的用戶，VPN服務需要激活，只需要看视频下载X个游戏即可完成激活" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="LIv-FB-nOJ">
+                            <rect key="frame" x="33" y="58" width="255" height="145"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBw-9s-RAz">
+                            <rect key="frame" x="8" y="236" width="96" height="36"/>
+                            <state key="normal" title="取消" backgroundImage="bt_region">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="onCancel:" destination="ZyJ-Sx-pWi" eventType="touchUpInside" id="S3U-PG-B1S"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mM5-4d-tju">
+                            <rect key="frame" x="216" y="236" width="96" height="36"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="-13" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="前往激活" backgroundImage="bt_region">
+                                <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="commit:" destination="ZyJ-Sx-pWi" eventType="touchUpInside" id="25T-dq-CzS"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(已完成0/2个)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="NVo-UK-2v6">
+                            <rect key="frame" x="216" y="251" width="96" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="acQ-FF-bRI"/>
+                        <constraint firstAttribute="height" constant="280" id="lqe-XH-6Dr"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.39461206900000001" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="KoD-QB-3TQ" firstAttribute="centerY" secondItem="ZyJ-Sx-pWi" secondAttribute="centerY" id="MhS-6J-x3D"/>
+                <constraint firstItem="KoD-QB-3TQ" firstAttribute="centerX" secondItem="ZyJ-Sx-pWi" secondAttribute="centerX" id="ZU3-oL-eDN"/>
+            </constraints>
+            <connections>
+                <outlet property="vipCommitButton" destination="NVo-UK-2v6" id="IYd-Pt-ljX"/>
+                <outlet property="vipMsgLabel" destination="LIv-FB-nOJ" id="P7X-lF-5jG"/>
+                <outlet property="vipTitleLabel" destination="Hzc-Kj-usw" id="wpA-hu-O6A"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="Bomb-box" width="330" height="328"/>
+        <image name="bt_region" width="7" height="8"/>
+    </resources>
+</document>
