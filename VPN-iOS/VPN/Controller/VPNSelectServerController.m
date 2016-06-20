@@ -36,6 +36,8 @@
     self.navigationItem.leftBarButtonItem = back;
     
     self.dataArray = [VPNManager sharedManager].serverDataArray;
+    
+    [VPNManager showAd1];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -44,8 +46,6 @@
     
     [self.tableView reloadData];
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:self.currentIdx inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    
-    [VPNManager showAd1];
 }
 
 - (IBAction)back:(id)sender{

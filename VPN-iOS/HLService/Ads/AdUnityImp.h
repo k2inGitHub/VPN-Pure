@@ -10,4 +10,8 @@
 
 @interface AdUnityImp : AdBaseImp
 
+- (BOOL)isEncourageInterstitialLoaded;
+
+- (void)showEncourageInterstitial;
+
 @end

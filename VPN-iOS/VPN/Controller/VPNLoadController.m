@@ -161,6 +161,8 @@
 
 - (void)changeTransform {
     
+    self.currencyLabel.text = [NSString stringWithFormat:@"%ld", [VPNManager sharedManager].currency];
+    
     _vipButton.transform = _forward ? CGAffineTransformScale(_vipButton.transform, 1.01,1.01) : CGAffineTransformScale(_vipButton.transform, 0.99,0.99);
     CGAffineTransform t = _vipButton.transform;
     float scale = sqrtf(t.a * t.a + t.c * t.c);

@@ -37,7 +37,7 @@
 @property (nonatomic, assign) int row;
 
 @property (nonatomic, readonly) HLADBannerModel*currentModel;
-//goto config?
+
 @property (nonatomic, assign) float refreshTime;
 
 @property (nonatomic, strong) NSTimer *refreshTimer;

@@ -41,6 +41,22 @@ typedef NS_ENUM(NSUInteger, ShowResult){
     [[UnityAds sharedInstance] setTestMode:NO];
     [[UnityAds sharedInstance] startWithGameId:_appID andViewController:[self viewControllerForPresentAd]];
 }
+//激励广告无法跳过
+- (void)showEncourageInterstitial{
+    if (!_isInitialized || _isShowing) {
+        [self deliverCallback:Failure];
+        return;
+    }
+    
+    if ([self isEncourageInterstitialLoaded]) {
+        [[UnityAds sharedInstance] setZone:@"rewardedVideoZone"];
+        [[UnityAds sharedInstance] show];
+    }
+}
+
+- (BOOL)isEncourageInterstitialLoaded{
+    return [[UnityAds sharedInstance] canShowZone:@"rewardedVideoZone"];
+}
 
 - (void)showInterstitial{
     
@@ -50,12 +66,13 @@ typedef NS_ENUM(NSUInteger, ShowResult){
     }
     
     if ([self isInterstitialLoaded]) {
+        [[UnityAds sharedInstance] setZone:@"defaultZone"];
         [[UnityAds sharedInstance] show];
     }
 }
 
 - (BOOL)isInterstitialLoaded{
-    return [[UnityAds sharedInstance] canShow];
+    return [[UnityAds sharedInstance] canShowZone:@"defaultZone"];
 }
 
 - (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped

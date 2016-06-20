@@ -116,13 +116,14 @@ NSString * const VPNStatusDidChangeNotification = @"VPNStatusDidChangeNotificati
     
     if (cost > _currency) {
         
-        if (_currency < 50) {
-            [KTUIFactory showAlertViewWithTitle:nil message:@"您的金币不足，系统将赠送您100金币" delegate:self tag:0 cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        } else {
+//        if (_currency < 50) {
+//            [KTUIFactory showAlertViewWithTitle:nil message:@"您的金币不足，系统将赠送您100金币" delegate:self tag:0 cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        } else
+        {
             
-            [UIAlertView showWithTitle:nil message:@"金币不足,去赚钱！" cancelButtonTitle:@"确定" otherButtonTitles:nil tapBlock:^(UIAlertView * _Nonnull alertView, NSInteger buttonIndex) {
+            [UIAlertView showWithTitle:nil message:@"金币还差一点哦 快去看视频领金币吧" cancelButtonTitle:@"确定" otherButtonTitles:nil tapBlock:^(UIAlertView * _Nonnull alertView, NSInteger buttonIndex) {
                 
-                [self performSelector:@selector(setSelectIdx) withObject:nil afterDelay:0];
+//                [self performSelector:@selector(setSelectIdx) withObject:nil afterDelay:0];
             }];
         }
         
@@ -162,6 +163,7 @@ NSString * const VPNStatusDidChangeNotification = @"VPNStatusDidChangeNotificati
     NSData *rootData = [rootString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
     NSPropertyListFormat format;
+    
     NSDictionary *root = rootData.length>0 ? [NSPropertyListSerialization propertyListWithData:rootData options:NSPropertyListImmutable format:&format error:&error] : nil;
     
 //    NSLog(@"NSDictionary = %@", root);

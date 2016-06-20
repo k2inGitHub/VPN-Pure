@@ -13,12 +13,19 @@
 #import "AppDelegate.h"
 #import "Canvas.h"
 #import "NSUserDefaults+KTAdditon.h"
+#import "UIAlertview+Blocks.h"
+
+typedef void(^VPNAlertViewBlock)(VPNAlertView *alertView);
 
 static NSMutableArray *_alertViews = nil;
 
 @interface VPNAlertView ()
 
 @property (nonatomic, weak) IBOutlet UILabel *unlockMsgLabel;
+
+@property (nonatomic, weak) IBOutlet UILabel *unlockTitleLabel;
+
+@property (nonatomic, weak) IBOutlet UIButton *unlockCommitButton;
 
 @property (nonatomic, weak) IBOutlet UILabel *vipMsgLabel;
 
@@ -38,6 +45,11 @@ static NSMutableArray *_alertViews = nil;
 
 @property (nonatomic, strong) NSDate *lastDate;
 
+@property (nonatomic, assign) int getIdx;
+
+@property (nonatomic, copy) VPNAlertViewBlock cancelBlock;
+
+@property (nonatomic, copy) VPNAlertViewBlock commitBlock;
 
 - (void)onCancel:(id)sender;
 
@@ -53,7 +65,7 @@ static NSMutableArray *_alertViews = nil;
 + (void)hideAllAlertViews{
     for (VPNAlertView *alertView in _alertViews) {
         if ([alertView superview] != nil) {
-            [alertView onCancel:nil];
+            [alertView cancel];
         }
     }
 }
@@ -66,7 +78,7 @@ static NSMutableArray *_alertViews = nil;
 + (instancetype)showWithAlertType:(VPNAlertType)alertType andModel:(VPNHomeModel *)m {
   
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    NSArray *names = @[@"VPNAlertVIP", @"VPNAlertUnlock", @"VPNAlertTip", @"VPNAlertVIP"];
+    NSArray *names = @[@"VPNAlertVIP", @"VPNAlertUnlock", @"VPNAlertTip", @"VPNAlertVIP", @"VPNAlertUnlock"];
     
     VPNAlertView *view = [[[NSBundle mainBundle] loadNibNamed:names[(int)alertType] owner:nil options:nil] lastObject];
     
@@ -115,12 +127,18 @@ static NSMutableArray *_alertViews = nil;
     
     _lastDate = [NSDate distantFuture];
     _adShow = NO;
+    _getIdx = 0;
     
     
     return self;
 }
 
 - (void)onInterstitialFailure:(HLAdType *)adType{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:HLInterstitialFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:HLInterstitialPresentNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:HLInterstitialFailureNotification object:nil];
+    
 }
 
 - (void)onInterstitialPresent:(HLAdType *)adType{
@@ -128,8 +146,40 @@ static NSMutableArray *_alertViews = nil;
 }
 
 - (void)onInterstitialFinish:(HLAdType *)adType {
-    _adShow = YES;
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:HLInterstitialFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:HLInterstitialPresentNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:HLInterstitialFailureNotification object:nil];
+    
+    _adShow = YES;
+    if (_alertType == VPNAlertVIP) {
+        int step = [HLAnalyst intValue:@"vip_step" defaultValue:10];
+        int base = [HLAnalyst intValue:@"vip_base" defaultValue:10];
+        int num = (_getIdx) * step + base;
+        int nextNum = (_getIdx + 1) * step + base;
+        [[VPNManager sharedManager] addCurrency:num];
+        
+        VPNAlertView *view = [VPNAlertView showWithAlertType:VPNAlertInfo];
+        view.unlockMsgLabel.text = [NSString stringWithFormat:@"成功领取%d金币，继续观看可再获得%d金币", num, nextNum];
+        view.cancelBlock = ^(VPNAlertView *view){
+            _getIdx = 0;
+        };
+        view.commitBlock = ^(VPNAlertView *view){
+            _getIdx++;
+            [self showAd];
+        };
+//        [UIAlertView showWithTitle:nil message:[NSString stringWithFormat:@"成功领取%d金币，继续观看可再获得%d金币", num, nextNum] cancelButtonTitle:@"返回" otherButtonTitles:@[@"继续观看"] tapBlock:^(UIAlertView * _Nonnull alertView, NSInteger buttonIndex) {
+//            
+//            if (buttonIndex == 1) {
+//                _getIdx++;
+//
+//                [self showAd];
+//            }
+//            if (buttonIndex == 0) {
+//                _getIdx = 0;
+//            }
+//        }];
+    }
 }
 
 
@@ -164,9 +214,39 @@ static NSMutableArray *_alertViews = nil;
     
 }
 
-- (IBAction)onCancel:(id)sender {
+- (void)cancel{
+
     [self removeFromSuperview];
     [_alertViews removeObject:self];
+}
+
+- (IBAction)onCancel:(id)sender {
+    [self cancel];
+    if (self.cancelBlock != nil) {
+        self.cancelBlock(self);
+    }
+}
+
+- (void)showAd{
+
+#if TARGET_IPHONE_SIMULATOR
+    
+    [self onInterstitialFinish:nil];
+#else
+    if ([[HLAdManager sharedInstance] isEncourageInterstitialLoaded]) {
+        [[HLAdManager sharedInstance] showEncourageInterstitial];
+    } else {
+        [[HLAdManager sharedInstance] showUnsafeInterstitial];
+    }
+#endif
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInterstitialFinish:) name:HLInterstitialFinishNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInterstitialPresent:) name:HLInterstitialPresentNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInterstitialFailure:) name:HLInterstitialFailureNotification object:nil];
+}
+
+- (IBAction)onGetCurrency:(id)sender{
+    [self showAd];
 }
 
 - (IBAction)commit:(id)sender{
@@ -186,7 +266,7 @@ static NSMutableArray *_alertViews = nil;
                 return;
             }
             
-            [self onCancel:nil];
+            [self cancel];
         }
             break;
         case VPNAlertVPN:{
@@ -196,27 +276,29 @@ static NSMutableArray *_alertViews = nil;
                 [[HLAdManager sharedInstance] showEncourageInterstitial];
                 return;
             }
-            [self onCancel:nil];
+            [self cancel];
         }break;
         case VPNAlertVIP:{
-            if (_vipCurrentCount >= _vipCount) {
+            
+            if ([[VPNManager sharedManager] costCurrency:_vipCount]) {
                 [[VPNManager sharedManager] setisVip:YES];
             } else {
-#if 1
-                [[HLAdManager sharedInstance] showEncourageInterstitial];
-#else
-                [self addVipCount];
-#endif
                 return;
             }
-            [self onCancel:nil];
+            [self cancel];
         }break;
         case VPNAlertTip:{
         
-            [self onCancel:nil];
+            [self cancel];
             [VPNAlertView showWithAlertType:VPNAlertVPN];
             
         }break;
+        case VPNAlertInfo:{
+            if (self.commitBlock) {
+                self.commitBlock(self);
+            }
+            [self cancel];
+        }
         default:
             break;
     }
@@ -237,12 +319,12 @@ static NSMutableArray *_alertViews = nil;
                 [_delegate onVipFinish];
             }
             
-            [self onCancel:nil];
+            [self cancel];
             [KTUIFactory showAlertViewWithTitle:nil message:@"恭喜你，获得VIP特权" delegate:nil tag:0 cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         } else {
             [[VPNManager sharedManager] setVPNEnable:YES];
             
-            [self onCancel:nil];
+            [self cancel];
             [KTUIFactory showAlertViewWithTitle:nil message:@"恭喜你，成功配置VPN" delegate:nil tag:0 cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         }
     }
@@ -265,16 +347,15 @@ static NSMutableArray *_alertViews = nil;
         _vipMsgLabel.text = [VPNManager sharedManager].alertDic[_alertType == VPNAlertVIP ? @"vipMsg" : @"vpnMsg"];
         [self updateCommitDetail];
         
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInterstitialFinish:) name:HLInterstitialFinishNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInterstitialPresent:) name:HLInterstitialPresentNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onInterstitialFailure:) name:HLInterstitialFailureNotification object:nil];
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:[UIApplication sharedApplication]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willResignActive:) name:UIApplicationWillResignActiveNotification object:[UIApplication sharedApplication]];
     } else if (_alertType == VPNAlertTip) {
         
         _tipMsgLabel.text = [VPNManager sharedManager].alertDic[@"tipMsg"];
+    } else if (_alertType == VPNAlertInfo) {
+    
+        _unlockTitleLabel.text = @"提示";
+        _unlockCommitButton.titleLabel.text = @"继续观看";
     }
 }
 
@@ -302,9 +383,9 @@ static NSMutableArray *_alertViews = nil;
 //}
 
 - (void)updateCommitDetail{
-    NSString *title = [NSString stringWithFormat:@"已完成%d/%d个",_vipCurrentCount, _vipCount];
-    
-    _vipCommitButton.text = title;
+//    NSString *title = [NSString stringWithFormat:@"已完成%d/%d个",_vipCurrentCount, _vipCount];
+//    
+//    _vipCommitButton.text = title;
 }
 
 //- (void)didReceiveMemoryWarning {

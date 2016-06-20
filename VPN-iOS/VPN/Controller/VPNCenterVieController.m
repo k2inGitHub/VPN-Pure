@@ -68,6 +68,9 @@
 @property (nonatomic, weak) IBOutlet UILabel *userDetail;
 @property (nonatomic, weak) IBOutlet UIView *questionView;
 
+
+@property (nonatomic, weak) IBOutlet UILabel *currencyLabel;
+
 @end
 
 @implementation VPNCenterVieController
@@ -176,7 +179,12 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [VPNManager showAd1];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    NSLog(@"viewDidAppear");
 }
 
 - (void)viewDidLoad {
@@ -219,6 +227,8 @@
 
 - (void)changeTransform {
 
+    _currencyLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[VPNManager sharedManager].currency];
+    
     _vipButton.transform = _forward ? CGAffineTransformScale(_vipButton.transform, 1.01,1.01) : CGAffineTransformScale(_vipButton.transform, 0.99,0.99);
     CGAffineTransform t = _vipButton.transform;
     float scale = sqrtf(t.a * t.a + t.c * t.c);

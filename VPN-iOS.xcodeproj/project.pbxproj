@@ -268,6 +268,8 @@
 		16941B9B1C88052F00E07BAA /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16941B921C88052F00E07BAA /* WMProgressView.m */; };
 		16941B9C1C88052F00E07BAA /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16941B941C88052F00E07BAA /* WMScrollView.m */; };
 		16941B9D1C88052F00E07BAA /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16941B971C88052F00E07BAA /* WMPageController.m */; };
+		169EF74D1CEC4AB600889165 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 169EF7481CEC4AB600889165 /* InfoPlist.strings */; };
+		169EF74E1CEC4AB600889165 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 169EF74B1CEC4AB600889165 /* InfoPlist.strings */; };
 		16EDBC001CA8FDE800A74ECC /* VPNServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDBBFF1CA8FDE800A74ECC /* VPNServiceController.m */; };
 		16EDBC031CA8FE9300A74ECC /* VPNProblemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDBC021CA8FE9300A74ECC /* VPNProblemController.m */; };
 		16EDBC071CA9028400A74ECC /* UIColor+VPNAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 16EDBC061CA9028400A74ECC /* UIColor+VPNAddition.m */; };
@@ -708,6 +710,8 @@
 		16941B951C88052F00E07BAA /* WMPageConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageConst.h; sourceTree = "<group>"; };
 		16941B961C88052F00E07BAA /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
 		16941B971C88052F00E07BAA /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
+		169EF7491CEC4AB600889165 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		169EF74C1CEC4AB600889165 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = InfoPlist.strings; sourceTree = "<group>"; };
 		16EDBBFE1CA8FDE800A74ECC /* VPNServiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPNServiceController.h; sourceTree = "<group>"; };
 		16EDBBFF1CA8FDE800A74ECC /* VPNServiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VPNServiceController.m; sourceTree = "<group>"; };
 		16EDBC011CA8FE9300A74ECC /* VPNProblemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPNProblemController.h; sourceTree = "<group>"; };
@@ -1555,6 +1559,22 @@
 			path = WMMenuView;
 			sourceTree = "<group>";
 		};
+		169EF7471CEC4AB600889165 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				169EF7481CEC4AB600889165 /* InfoPlist.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		169EF74A1CEC4AB600889165 /* zh-Hans.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				169EF74B1CEC4AB600889165 /* InfoPlist.strings */,
+			);
+			path = "zh-Hans.lproj";
+			sourceTree = "<group>";
+		};
 		16EDBC041CA9026E00A74ECC /* Others */ = {
 			isa = PBXGroup;
 			children = (
@@ -1589,6 +1609,8 @@
 		16F5E8501C7ADA3800AC2538 /* VPN-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				169EF7471CEC4AB600889165 /* en.lproj */,
+				169EF74A1CEC4AB600889165 /* zh-Hans.lproj */,
 				1652A9B81CAA693600B6AEAD /* HLService */,
 				16FCCFE41CA9325300426B45 /* VPN-iOS.entitlements */,
 				16941B881C88052F00E07BAA /* ThirdParty */,
@@ -1666,10 +1688,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 16F5E87B1C7ADA3800AC2538 /* Build configuration list for PBXNativeTarget "VPN-iOS" */;
 			buildPhases = (
+				16F5E84C1C7ADA3800AC2538 /* Resources */,
 				1309E704B0DCBE3000E49361 /* Check Pods Manifest.lock */,
 				16F5E84A1C7ADA3800AC2538 /* Sources */,
 				16F5E84B1C7ADA3800AC2538 /* Frameworks */,
-				16F5E84C1C7ADA3800AC2538 /* Resources */,
 				3F1A237876F4956D68A688EB /* Embed Pods Frameworks */,
 				A047F7B15A5199618C9B865E /* Copy Pods Resources */,
 			);
@@ -1729,7 +1751,7 @@
 				TargetAttributes = {
 					16F5E84D1C7ADA3800AC2538 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 3W5ZP7KR89;
+						DevelopmentTeam = ATG8BKGJTH;
 						SystemCapabilities = {
 							com.apple.VPNLite = {
 								enabled = 1;
@@ -1753,6 +1775,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 16F5E8451C7ADA3800AC2538;
 			productRefGroup = 16F5E84F1C7ADA3800AC2538 /* Products */;
@@ -1810,6 +1833,7 @@
 				1652ABDE1CAA693600B6AEAD /* webview_bar_back_grey.png in Resources */,
 				1652ABE11CAA693600B6AEAD /* webview_bar_next.png in Resources */,
 				1652ABCA1CAA693600B6AEAD /* webview_bar_share_ipad@2x.png in Resources */,
+				169EF74D1CEC4AB600889165 /* InfoPlist.strings in Resources */,
 				1652ABC71CAA693600B6AEAD /* webview_bar_next_ipad@2x.png in Resources */,
 				1652ABBB1CAA693600B6AEAD /* webview_bar_next_hover@2x.png in Resources */,
 				1652AB5C1CAA693600B6AEAD /* admogoVideo_18.png in Resources */,
@@ -1903,6 +1927,7 @@
 				1652AB731CAA693600B6AEAD /* adsmenuVoice_off@2x.png in Resources */,
 				1652AB5F1CAA693600B6AEAD /* admogoVideo_20.png in Resources */,
 				1652AB671CAA693600B6AEAD /* admogoVideo_28.png in Resources */,
+				169EF74E1CEC4AB600889165 /* InfoPlist.strings in Resources */,
 				1652AB8C1CAA693600B6AEAD /* adsMoGoInterstitial.html in Resources */,
 				1652AC041CAA693600B6AEAD /* vg_mute_off.png in Resources */,
 				1652AB8F1CAA693600B6AEAD /* adsmogo_adclose@2x.png in Resources */,
@@ -2123,6 +2148,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		169EF7481CEC4AB600889165 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				169EF7491CEC4AB600889165 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		169EF74B1CEC4AB600889165 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				169EF74C1CEC4AB600889165 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		16F5E85A1C7ADA3800AC2538 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2272,7 +2313,7 @@
 					"$(PROJECT_DIR)/VPN-iOS/HLService/Analyst/UMOnlineConfig",
 					"$(PROJECT_DIR)/VPN-iOS/HLService/Ads/AdsMoGo/AdNetworkLibs/Baidu(3.3)_SDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mdhandloft.VPN-iOS2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nakedtree.VPN-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7";
@@ -2327,7 +2368,7 @@
 					"$(PROJECT_DIR)/VPN-iOS/HLService/Analyst/UMOnlineConfig",
 					"$(PROJECT_DIR)/VPN-iOS/HLService/Ads/AdsMoGo/AdNetworkLibs/Baidu(3.3)_SDK",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mdhandloft.VPN-iOS2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nakedtree.VPN-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7";

@@ -21,7 +21,7 @@
 + (void)start{
     [MobClick startWithAppkey:[HLInterface sharedInstance].umeng_code reportPolicy:REALTIME channelId:[HLInterface sharedInstance].umeng_Channel];
     [UMOnlineConfig updateOnlineConfigWithAppkey:[HLInterface sharedInstance].umeng_code];
-    [UMOnlineConfig setLogEnabled:NO];
+    [UMOnlineConfig setLogEnabled:YES];
 }
 
 + (NSString *)stringValue:(NSString *)key{

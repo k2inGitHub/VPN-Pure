@@ -209,7 +209,7 @@ HLAdType HLAdHandloft = @"handloft";
 
 - (BOOL)isEncourageInterstitialLoaded{
     BOOL ret = NO;
-    if ([HLInterface sharedInstance].encouraged_ad_strategy_unityad_switch == 1 && [_adUnity isInterstitialLoaded]) {
+    if ([HLInterface sharedInstance].encouraged_ad_strategy_unityad_switch == 1 && [_adUnity isEncourageInterstitialLoaded]) {
         ret = YES;
     } else if ([HLInterface sharedInstance].encouraged_ad_strategy_vungle_switch == 1 && [_adVungle isInterstitialLoaded]) {
         ret = YES;
@@ -219,14 +219,10 @@ HLAdType HLAdHandloft = @"handloft";
 
 - (void)showEncourageInterstitial{
 
-    AdBaseImp *_targetAdEncouragedInterstitial = nil;
-    if ([HLInterface sharedInstance].encouraged_ad_strategy_unityad_switch == 1 && [_adUnity isInterstitialLoaded]) {
-        _targetAdEncouragedInterstitial = _adUnity;
+    if ([HLInterface sharedInstance].encouraged_ad_strategy_unityad_switch == 1 && [_adUnity isEncourageInterstitialLoaded]) {
+        [_adUnity showEncourageInterstitial];
     } else if ([HLInterface sharedInstance].encouraged_ad_strategy_vungle_switch == 1 && [_adVungle isInterstitialLoaded]) {
-        _targetAdEncouragedInterstitial = _adVungle;
-    }
-    if (_targetAdEncouragedInterstitial != nil) {
-        [_targetAdEncouragedInterstitial showInterstitial];
+        [_adVungle showInterstitial];
     }
 }
 

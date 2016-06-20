@@ -51,7 +51,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [VPNManager showAd1];
 }
 
 /*

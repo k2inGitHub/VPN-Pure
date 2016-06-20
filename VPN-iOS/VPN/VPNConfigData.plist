@@ -393,7 +393,7 @@
 		</array>
 	</dict>
 	<key>baseCurrency</key>
-	<integer>200</integer>
+	<integer>0</integer>
 	<key>currency</key>
 	<dict>
 		<key>spinCost</key>
@@ -410,11 +410,11 @@
 		<key>loadDescriptionText</key>
 		<string>尊敬的用户，（由于原因你懂的）网页加载失败请重新刷新页面或更换VPN线路返回观看其他资源</string>
 		<key>vipMsg</key>
-		<string>只需下载2个视频广告中推荐的app即可免费激活高速稳定不限流量的VIP专属线路！（如果点激活按钮没反应，请重启应用或稍后再试）</string>
+		<string>您可以花费500金币激活VIP服务。VIP用户可享受无限流量的高速专线服务器。</string>
 		<key>vpnMsg</key>
 		<string>尊敬的用戶，VPN服務需要激活，只需要看视频下载2个游戏即可完成激活（如果点激活按钮没反应，请重启应用或稍后再试）</string>
 		<key>vipCount</key>
-		<integer>2</integer>
+		<integer>500</integer>
 		<key>vpnCount</key>
 		<integer>2</integer>
 		<key>tipMsg</key>

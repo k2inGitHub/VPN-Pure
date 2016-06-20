@@ -13,13 +13,14 @@
 #import "NSUserDefaults+KTAdditon.h"
 #import "VPNAlertView.h"
 #import "UIColor+VPNAddition.h"
+#import "UIAlertView+Blocks.h"
 //@import NetworkExtension;
 
 @interface VPNPageController ()
 
 @property (nonatomic, weak) UILabel *vpnLabel;
 
-@property (nonatomic, weak) UILabel *currencyLabel;
+//@property (nonatomic, weak) UILabel *currencyLabel;
 
 @end
 
@@ -80,15 +81,20 @@
                 
                 [VPNAlertView showWithAlertType:VPNAlertVIP];
                 [self performSelector:@selector(showAd) withObject:nil afterDelay:1];
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"VPN_First"];
+                
+                
+                [self showMoney];
+                
+                
             } and:^{
+                [self showMoney];
                 
                 [VPNAlertView showWithAlertType:VPNAlertVIP];
                 
                 [self performSelector:@selector(showAd) withObject:nil afterDelay:1];
             }];
             
-            
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"VPN_First"];
         }
         [[HLPopupManager sharedManager] showUpdate:^{
             
@@ -100,6 +106,13 @@
     
     
     self.selectIndex = 1;
+}
+
+- (void)showMoney{
+    int num = [HLAnalyst intValue:@"init_reward_money" defaultValue:300];
+    [UIAlertView showWithTitle:nil message:[NSString stringWithFormat:@"跟谢您的使用,%d金币请笑纳", num] cancelButtonTitle:@"确定" otherButtonTitles:nil tapBlock:^(UIAlertView * _Nonnull alertView, NSInteger buttonIndex) {
+        [[VPNManager sharedManager] addCurrency:num];
+    }];
 }
 
 - (void)showAd{
@@ -145,11 +158,11 @@
 
 - (void)updateCurrency {
 
-    _currencyLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[VPNManager sharedManager].currency];
-    
-    CGSize size = [_currencyLabel.text sizeWithAttributes:@{NSFontAttributeName : _currencyLabel.font}];
-    
-    _currencyLabel.frame = CGRectMake(0, 0, MIN(size.width, 54), 40);
+//    _currencyLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[VPNManager sharedManager].currency];
+//    
+//    CGSize size = [_currencyLabel.text sizeWithAttributes:@{NSFontAttributeName : _currencyLabel.font}];
+//    
+//    _currencyLabel.frame = CGRectMake(0, 0, MIN(size.width, 54), 40);
 }
 
 - (void)updateStatus{
@@ -193,6 +206,19 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:VPNCurrencyDidChangeNotification object:nil];
 }
 
+- (void)setSelectIndex:(int)idx{
+    
+    NSLog(@"setSelectIndex");
+    [super setSelectIndex:idx];
+}
+
+- (void)pageController:(WMPageController *)pageController willEnterViewController:(__kindof UIViewController *)viewController withInfo:(NSDictionary *)info{
+
+    NSLog(@"willEnterViewController = %@", viewController);
+    
+    [VPNManager showAd1];
+}
+
 #pragma mark - WMPageController DataSource
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
     return self.titles.count;
@@ -205,6 +231,7 @@
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
     UIStoryboard *sb = [VPNManager sharedManager].storyboard;
     UIViewController *vc = [sb instantiateViewControllerWithIdentifier:self.titles[index]];
+    NSLog(@"pageController viewControllerAtIndex = %d", index);
     return vc;
 }
 

@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, VPNAlertType) {
     VPNAlertUnlock,
     VPNAlertTip,
     VPNAlertVPN,
+    VPNAlertInfo,
     VPNAlertCount,
 };
 
